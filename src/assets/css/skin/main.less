@@ -1,0 +1,43 @@
+@import './module';
+@import './unit';
+@import './function';
+@import './unit-icon';
+@import './unit-tooltip';
+@import './unit-progress';
+@import './unit-grid';
+
+body {
+  font-family: 'PingFang-SC-Medium';
+  // background: url(../../images/bg.jpg) center center no-repeat;
+  background: #ebeef0;
+  background-size: 100.5% 100%;
+  background-attachment: fixed;
+}
+
+::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #c6ccd5;
+}
+:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #c6ccd5;
+}
+::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #c6ccd5;
+}
+:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: #c6ccd5;
+}
+.hide {
+  display: none;
+}
+.soft-hide {
+  visibility: hidden;
+  position: absolute;
+  z-index: -99;
+}
+.hide-import {
+  display: none !important;
+}

@@ -1,0 +1,1 @@
+export default {"appkey":"b0d8754e06bc139fd6e24572f5f302db","url":"https://www.stephen-curry.online/api","resourceUrl":"http://yx-web.nos.netease.com/webdoc/h5","emojiBaseUrl":"http://yx-web.nosdn.127.net/webdoc/h5/emoji","testH5PPTUrl":"https://apptest.netease.im/webdemo/ppt/ff1537e0d343821fc509f3165224ab41/index.html"}

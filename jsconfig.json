@@ -1,0 +1,22 @@
+{
+  "exclude": ["node_modules", "sdk", "dist"],
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "paths": {
+      "@": ["./src"],
+      "component": ["./src/component"],
+      "layout": ["./src/component/layout"],
+      "module": ["./src/module"],
+      "pages": ["./src/pages"],
+      "test": ["./test"],
+      "util": ["./src/util"],
+      "assets": ["./src/assets"],
+      "images": ["./src/assets/images"],
+      "store": ["./src/store"],
+      "sdk": ["./src/sdk"],
+      "ext": ["./src/ext"],
+      "config": ["./src/config"]
+    }
+  }
+}

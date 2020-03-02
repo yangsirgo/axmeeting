@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>人民好医生·云会诊平台 </title>
+  <style>
+    .origin_loading::before {
+       position: absolute;
+       content: '加载中，请稍后...';
+       top: 0;
+       left: 0;
+       background: rgba(255,255,255,.56);
+       width: 100%;
+       height: 100%;
+       border-radius: .28571429rem;
+       z-index: 100;
+      text-align: center;
+      padding-top: 40vh;
+      font-size: 27px;
+     }
+
+    .origin_loading::after {
+       position: absolute;
+       content: '';
+       top: 50%;
+       left: 50%;
+       margin: -1.5em 0 0 -1.5em;
+       width: 5em;
+       height: 5em;
+       -webkit-animation: segment-spin .6s linear;
+       animation: segment-spin .6s linear;
+       -webkit-animation-iteration-count: infinite;
+       animation-iteration-count: infinite;
+       border-radius: 500rem;
+       border-color: #767676 rgba(0,0,0,.1) rgba(0,0,0,.1);
+       border-style: solid;
+       border-width: .5em;
+       -webkit-box-shadow: 0 0 0 1px transparent;
+       box-shadow: 0 0 0 1px transparent;
+       visibility: visible;
+       z-index: 101;
+     }
+
+  </style>
+</head>
+<body class="origin_loading">
+    <div id="app"></div>
+    <script>
+      // 初始化 加载 去掉 loading
+      window.onload = function () {
+        console.log('页面加载完成了');
+        let node = document.getElementsByTagName('body');
+        node && node[0].classList.remove('origin_loading');
+      }
+    </script>
+    <script src="./sdk/NIM_Web_NIM_v7.1.1.js"></script>
+    <script src="./sdk/NIM_Web_Chatroom_v7.1.1.js"></script>
+    <script src="./sdk/NIM_Web_WebRTC_v7.1.1.js"></script>
+    <script src="./sdk/NIM_Web_WhiteBoard_v7.1.1.js"></script>
+    <script src="./sdk/DrawPlugin.2.0.0.js" async></script>
+    <script src="./sdk/DrawPluginUI.2.0.0.js" async></script>
+</body>
+</html>
