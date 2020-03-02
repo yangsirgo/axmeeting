@@ -1126,6 +1126,14 @@
     div:first-child {
       background: #000;
     }
+
+    //调整 直播摄像头 的 位移 修复 右键显示控件 transform属性显示问题
+    video[data-uid] {
+      top: 0 !important;
+      left: 0 !important;
+      transform: unset !important;
+    }
+
   }
   .offline {
     position: absolute;
