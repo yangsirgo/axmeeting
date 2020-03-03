@@ -92,10 +92,10 @@ class Main extends Component {
       setTimeout(() => {
         NetcallAction.setShareStarted(true)
         // let dom1 = document.getElementById('videoShare')
-        // if (dom1) {
-        //   dom1.srcObject = dom.childNodes[0].childNodes[0].srcObject
-        //   dom1.play()
-        // }
+        //         // if (dom1) {
+        //         //   dom1.srcObject = dom.childNodes[0].childNodes[0].srcObject
+        //         //   dom1.play()
+        //         // }
       }, 1000)
     }).catch(e => {
       this.stopScreenSharing()
@@ -114,7 +114,17 @@ class Main extends Component {
     EXT_NIM.sendCustomSysMsg(account, {
       room_id: ChatroomState.currChatroomId,
       command: 15
-    })
+    });
+      let selfIndex = NetcallState.members.findIndex(item => {
+          return item.account == NimState.account;
+      });
+      NetcallAction.settabindex(0);
+      NetcallAction.setShareStarted(false);
+      EXT_NETCALL.startCamera().then(() => {
+          EXT_NETCALL.setVideoViewSize(0);
+          EXT_NETCALL.startLocalStream(NetcallState.doms[selfIndex] );
+      });
+
   }
 
   request = e => {
@@ -373,7 +383,7 @@ class Main extends Component {
                   disabled={state.requesting}
                   loading={state.requesting}
                 >
-                  请求互动
+                  请求音视频互动
                 </Button>
               )}
 

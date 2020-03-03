@@ -80,6 +80,14 @@ export default {
                 });
             })
         }
+        else{
+            NetcallAction.settabindex(0);
+            NetcallAction.setShareStarted(false);
+            EXT_NETCALL.startCamera().then(() => {
+                EXT_NETCALL.setVideoViewSize(0);
+                EXT_NETCALL.startLocalStream(NetcallState.doms[selfIndex] );
+            });
+        }
     },
 
     stopScreenSharing(){

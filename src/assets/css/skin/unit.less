@@ -262,16 +262,38 @@
     top: 0;
     .button {
       margin-top: 5px;
-      width: 68px;
+      text-align: center;
+      border-style: solid;
+      border-width: 0;
+      cursor: pointer;
+      font-family: inherit;
       height: 22px;
       line-height: 22px;
-      background: #e3e6ec;
-      text-align: center;
-      cursor: pointer;
+      position: relative;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 12px;
+      background-color: #adc708;
+      border-color: #829606;
+      color: white;
       border-radius: 11px;
+      padding:0 10px;
+      box-shadow: 0 -2px 0 rgba(0,0,0,0.2) inset;
+      -webkit-transition: background-color 300ms ease-out;
+      transition: background-color 300ms ease-out;
+      -webkit-animation-name: redPulse;
+      -webkit-animation-duration: 1s;
+      -webkit-animation-iteration-count: infinite;
 
       &.button-end {
-        color: #ff5454;
+        color: #ff5454!important;
+        background: #e3e6ec!important;
+        border-style:none;
+        border-width: unset;
+        border-color: unset;
+        box-shadow: unset;
+        transition: unset;
+        animation:unset;
       }
     }
     .interaction-msg {
@@ -441,4 +463,11 @@
   margin-right: 8px;
   background: url(../../images/icon-tip.png) center center no-repeat;
   background-size: 22px 22px;
+}
+
+//允许互动的按钮动画
+@-webkit-keyframes redPulse {
+  from { background-color: #bc330d; -webkit-box-shadow: 0 0 9px #333; }
+  50% { background-color: #e33100; -webkit-box-shadow: 0 0 8px #e33100; }
+  to { background-color: #bc330d; -webkit-box-shadow: 0 0 9px #fff; }
 }

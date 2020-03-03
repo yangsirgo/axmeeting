@@ -1,6 +1,6 @@
 /*
- * @Author: lduoduo 
- * @Date: 2018-01-27 13:25:36 
+ * @Author: lduoduo
+ * @Date: 2018-01-27 13:25:36
  * @Last Modified by: lduoduo
  * @Last Modified time: 2018-01-27 21:58:20
  * 聊天室成员列表
@@ -338,7 +338,7 @@ export default class extends Component {
                         className="button button-end"
                         onClick={this.endInteraction.bind(this, item.account)}
                       >
-                        结束互动
+                        结束音视频互动
                       </div>
                     )}
                   {isTeacher == 1 &&
@@ -347,7 +347,7 @@ export default class extends Component {
                         className="button"
                         onClick={this.allowInteraction.bind(this, item.account)}
                       >
-                        允许互动
+                        允许音视频互动
                       </div>
                     )}
                   {isTeacher == 0 &&
