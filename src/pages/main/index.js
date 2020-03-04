@@ -36,7 +36,9 @@ const NetcallAction = StoreNetcall;
 class Main extends Component {
   state = {
     needShowTip: true, //是否需要持续显示设备无可用的提示消息
-    requesting: false //是否正在请求
+    requesting: false, //是否正在请求
+    currentVideo: 0,//二层视频 中显示的视频索引
+    totalVideo:0//二层视频 能播放的总数
   };
   componentDidMount() {
     CheckBroswer({
@@ -92,10 +94,10 @@ class Main extends Component {
       setTimeout(() => {
         NetcallAction.setShareStarted(true)
         // let dom1 = document.getElementById('videoShare')
-        //         // if (dom1) {
-        //         //   dom1.srcObject = dom.childNodes[0].childNodes[0].srcObject
-        //         //   dom1.play()
-        //         // }
+        // if (dom1) {
+        //   dom1.srcObject = dom.childNodes[0].childNodes[0].srcObject
+        //   dom1.play()
+        // }
       }, 1000)
     }).catch(e => {
       this.stopScreenSharing()
@@ -317,6 +319,26 @@ class Main extends Component {
     });
   };
 
+  nexVideo = e => {
+    console.log(e);
+    let current = this.state.currentVideo;
+    let newCurrent = current < 3 ? current+1 : 0;
+
+    this.setState({
+      currentVideo:newCurrent
+    })
+
+  }
+
+  previousVideo = e => {
+    let current = this.state.currentVideo;
+    let newCurrent = current <= 0 ? 3 : current-1;
+
+    this.setState({
+      currentVideo:newCurrent
+    })
+  }
+
   render() {
     const state = this.state;
 
@@ -333,6 +355,19 @@ class Main extends Component {
     } else {
       shareScreenText = ''
     }
+
+    // item status === 1 是正在视频的状态
+    let onLineTotal = NetcallState.members.filter((item) => {
+      return item.account;
+    });
+    console.log("正在视频的数量：", onLineTotal.length);
+
+    let totalVideo = onLineTotal.length;
+
+    // this.setState({
+    //   totalVideo:onLineTotal.length
+    // });
+
     return (
       <div>
         <Header isHome={false} />
@@ -414,17 +449,33 @@ class Main extends Component {
           </div>
           <Whiteboard />
           <div className="m-netcall">
-            {NetcallState.members.map((item, index) => (
-              <Video
-                key={index}
-                className={"video-" + (index + 1)}
-                index={index}
-                self={item.self}
-                nick={item.nick}
-                account={item.account}
-                offline={item.offline}
-              />
-            ))}
+            <div className="m-netcall-relative">
+              <div className="m-netcall-video-wrapper"  style={{'marginLeft': '-' + this.state.currentVideo * 280 + 'px'}}>
+                {NetcallState.members.map((item, index) => (
+                  <Video
+                    key={index}
+                    className={"video-" + (index + 1)}
+                    index={index}
+                    self={item.self}
+                    nick={item.nick}
+                    account={item.account}
+                    offline={item.offline}
+                  />
+                ))}
+              </div>
+              { (totalVideo > 2) && (
+              <div className="m-netcall-video-icon">
+                <div className="m-netcall-video-iconUp" onClick={(e)=>{this.previousVideo(e)}}>
+                  <span>  &lt; </span>
+                </div>
+                <div className="m-netcall-video-iconDown" onClick={(e)=>{this.nexVideo(e)}}>
+                  <span>
+                    &gt;
+                  </span>
+                </div>
+              </div>
+              )}
+            </div>
           </div>
           <Chatroom />
         </div>

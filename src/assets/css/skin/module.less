@@ -1046,49 +1046,122 @@
   width: 280px;
   height: 416px;
   background-color: #313c4c;
+  overflow: hidden;
+
+  .m-netcall-relative {
+    position: relative;
+    height: 100%;
+    width: 100%;
+
+    .m-netcall-video-wrapper {
+      width:2000px;
+      height: 100%;
+      margin-left: 0;
+      transition: margin-left 0.3s linear;
+    }
+
+    .m-netcall-video-icon {
+      display: flex;
+      height: 50%;
+      justify-content:space-between;
+      align-items:center;
+      position: absolute;
+      top: 208px;
+      bottom: 0;
+      left: 0;
+      width: 280px;
+      .m-netcall-video-iconUp {
+        //flex: 1;
+        width: 50px;
+
+        z-index: 11;
+        cursor: pointer;
+        > span {
+          color: white;
+          padding-left: 10px;
+          background: rgba(125,125,120,.3);
+          font-size: 40px;
+        }
+      }
+
+      .m-netcall-video-iconDown {
+        //flex: 1;
+        width: 50px;
+
+        text-align: right;
+        z-index: 11;
+        cursor: pointer;
+        > span {
+          color: white;
+          padding-right: 10px;
+          background: rgba(125,125,120,.3);
+          font-size: 40px;
+        }
+      }
+    }
+  }
+
+
+
+
+
 }
 
+
+
+
+
+
+
+
+
+
 .m-netcall-video {
-  position: absolute;
+  position: relative;
   //width: 139px;
   //height: 104px;
+  float: left;
   background-color: #7e858d;
+  width: 280px;
+  height: 208px;
+  z-index: 10;
+  top: 208px;
   &.video-1 {
-    width: 280px;
-    height: 208px;
-    left: 0;
+    position: absolute;
+    float: unset;
     top: 0;
+    left: 0;
   }
   &.video-2 {
-    width: 140px;
-    height: 104px;
-    left: 0;
-    top: 208px;
-    bottom: 104px;
+    //width: 140px;
+    //height: 104px;
+    //left: 0;
+    //top: 208px;
+    //bottom: 104px;
     //bottom: 208px;
   }
   &.video-3 {
-    width: 140px;
-    height: 104px;
-    right: 0;
-    top: 208px;
-    bottom: 104px;
+    //width: 140px;
+    //height: 104px;
+    //right: 0;
+    //top: 208px;
+    //bottom: 104px;
     //bottom: 208px;
   }
   &.video-4 {
-    width: 140px;
-    height: 106px;
-    left: 0;
-    top: 312px;
-    bottom: 0px;
+    //width: 140px;
+    //height: 106px;
+    //left: 0;
+    //top: 312px;
+    //bottom: 0px;
     //bottom: 104px;
   }
   &.video-5 {
-    width: 140px;
-    height: 106px;
-    right: 0;
-    top: 312px;
-    bottom: 0px;
+    //width: 140px;
+    //height: 106px;
+    //right: 0;
+    //top: 312px;
+    //bottom: 0px;
     //bottom: 104px;
   }
   //&.video-6 {
@@ -1135,6 +1208,13 @@
     }
 
   }
+
+  .room-hasuser > div {
+    height: 100% !important;
+    width: 100% !important;
+  }
+
+
   .offline {
     position: absolute;
     left: 0;
