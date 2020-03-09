@@ -449,7 +449,7 @@ export default class Login extends Component {
     } else if (roomType === 'join') {
       this.requestJoinRoom (roomNo,data);
     } else {
-      alert('您的账号可能被其他人登录，请在会诊系统中重新进入');
+      alert('请在会诊系统中重新进入');
         if (navigator.userAgent.indexOf("Firefox") != -1 || navigator.userAgent.indexOf("Chrome") !=-1) {
             window.location.href="about:blank";
             window.close();

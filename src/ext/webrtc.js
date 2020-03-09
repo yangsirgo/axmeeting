@@ -1,5 +1,5 @@
 import env from "../env";
-import { StoreNim, StoreNetcall, StoreChatroom, StoreEventPool } from "store";
+import { StoreNim, StoreNetcall, StoreChatroom, StoreEventPool, StoreWhiteBoard } from "store";
 import { Netcall } from "../module";
 import { Alert, Toast, Loading, Storage, Ajax } from "util";
 import platform from 'platform';
@@ -88,6 +88,10 @@ export default {
                 EXT_NETCALL.startLocalStream(NetcallState.doms[selfIndex] );
             });
         }
+        setTimeout(() => {
+            StoreWhiteBoard.setStatus({maskShareState: false});
+            console.log("20200306 StoreWhiteBoard.state.maskShareState", StoreWhiteBoard.state.maskShareState);
+        },1000);
     },
 
     stopScreenSharing(){

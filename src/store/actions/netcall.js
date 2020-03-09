@@ -43,12 +43,6 @@ export default class {
             nick: "",
             self: false
         }
-        // ,
-        // {
-        //     account: "",
-        //     nick: "",
-        //     self: false
-        // }
     ], //音视频成员(预定义四个)
     video: true, //当前成员视频启用状态
     audio: true, //当前成员音频启用状态
@@ -222,12 +216,6 @@ export default class {
             nick: "",
             self: false
         }
-        // ,
-        // {
-        //     account: "",
-        //     nick: "",
-        //     self: false
-        // }
     ];
     console.log("store --> netcall --> clearMembers");
   }
@@ -246,7 +234,7 @@ export default class {
   }
 
   addMemberIfNotFull(members) {
-    const needAddLen = members.length < 6 ? 6 - members.length : 0;
+    const needAddLen = members.length < 5 ? 5 - members.length : 0;
     if (needAddLen > 0) {
       for (let i = 0, len = needAddLen; i < len; i++) {
         members.push({
@@ -267,8 +255,8 @@ export default class {
         existMemberCount +=1;
       }
     });
-    console.log('是否可继续加人互动：', existMemberCount , existMemberCount == 6);
-    return existMemberCount== 12;
+    console.log('是否可继续加人互动：', existMemberCount , existMemberCount == 5);
+    return existMemberCount== 5;
   }
   @action
   addMember(member, isTeacher, offline) {

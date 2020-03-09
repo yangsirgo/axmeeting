@@ -1,5 +1,11 @@
 /*模块*/
-
+.mask-share {
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  z-index: 1005;
+  position: absolute
+}
 
 /*登录&注册*/
 
@@ -167,7 +173,7 @@
     line-height: 23px;
     height: 50px;
     background:url(../../images/people/logo_new.png) left center no-repeat;
-    //background:url(../../images/logo.png) left center no-repeat;
+    //background:url(../../images/logo-old.png) left center no-repeat;
     //background-size:133px 23px;
   }
   .logo-title{
@@ -1539,4 +1545,23 @@
   100% {
     transform: rotate(180deg);
   }
+}
+
+//与专家讨论区 样式代码 处理
+.m-chatroom-input  {
+  margin-bottom: 18px;
+  .part {
+    &.part-1 {
+      .btn-width {
+        width: auto !important;
+        padding: 0 10px;
+      }
+    }
+  }
+
+  .m-chatroom-input-tip {
+    position: absolute;
+    bottom: -18px;
+  }
+
 }

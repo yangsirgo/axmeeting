@@ -28,6 +28,11 @@ export default class extends Component {
 
   showChatPanel = e => {
    ChatroomAction.setIsShowMemberTab(false);
+
+   setTimeout(()=>{
+     //聚焦到textarea
+     document.querySelector('.msg-input').focus();
+   },0)
   };
 
   showMemberPanel = e => {

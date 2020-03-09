@@ -130,6 +130,11 @@ export default class extends Component {
     EXT_CHAT.close(ChatroomState.currChatroomId)
       .then(() => {
         // debugger
+          Storage.remove("nickname");
+          Storage.remove("username");
+          Storage.remove("pwd");
+          Storage.remove("roomName");
+          Storage.remove("roomType");
         console.log("关闭聊天室成功，继续退出流程");
         this.doLogoutChatroom();
       })
@@ -141,6 +146,11 @@ export default class extends Component {
   //学生退出房间
   doClose4Student = () => {
     console.log("学生：退出房间...");
+      Storage.remove("nickname");
+      Storage.remove("username");
+      Storage.remove("pwd");
+      Storage.remove("roomName");
+      Storage.remove("roomType");
     Alert.close();
     this.doLogoutChatroom();
   };

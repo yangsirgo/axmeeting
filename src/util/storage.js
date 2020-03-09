@@ -1,12 +1,12 @@
 /*
- * @Author: lduoduo 
- * @Date: 2018-01-19 23:05:03 
+ * @Author: lduoduo
+ * @Date: 2018-01-19 23:05:03
  * @Last Modified by: lduoduo
  * @Last Modified time: 2018-02-26 23:16:15
  * 本地存储工具方法, 默认采用 sessionStorage
  */
 
-const storage = window.sessionStorage || window.localStorage;
+const storage =  window.localStorage;
 export default {
   get(name) {
     return storage.getItem(name);

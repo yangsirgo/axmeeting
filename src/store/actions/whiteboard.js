@@ -1,6 +1,6 @@
 /*
- * @Author: lduoduo 
- * @Date: 2018-01-28 15:42:40 
+ * @Author: lduoduo
+ * @Date: 2018-01-28 15:42:40
  * @Last Modified by: lduoduo
  * @Last Modified time: 2018-04-03 14:44:59
  * 白板各种状态管理
@@ -21,6 +21,7 @@ import defaultConfig from '../config';
 export default class wbConfig {
   @observable
   state = Object.assign({}, defaultConfig.wbInfo, {
+    maskShareState: false,
     serializeFileStateMap: defaultConfig.serializeFileStateMap,
     unserializeFileStateMap: defaultConfig.unserializeFileStateMap,
     unserializeFileStateText: defaultConfig.unserializeFileStateText,
@@ -43,6 +44,7 @@ export default class wbConfig {
   @action
   reset() {
     console.log('store --> wb --> reset');
+    this.state.maskShareState = false;
     this.state.fileList = [];
     this.state.currentFile = null;
     this.state.fileListCount = 0;
@@ -224,7 +226,7 @@ export default class wbConfig {
     this.state.showFileTip = !!isEnable;
   }
 
-  @action 
+  @action
   setInited(yes){
     console.log('store --> wb --> Setinited', yes);
     this.state.inited = yes;

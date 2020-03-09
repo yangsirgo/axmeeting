@@ -758,7 +758,7 @@ export default {
   // 异步请求通过roomId获取聊天室地址
   login(chatroomId) {
     const param = {
-      url: env.url + "/api/netease/chatroom/address",
+      url: env.url + "/api/netease/chatroom/address2",
       type: "POST",
       data: {
         // uid: StoreNim.state.account,
@@ -769,12 +769,16 @@ export default {
     return Ajax(param)
       .then(data => {
         // debugger
-        console.log("获取聊天室地址", data);
+        console.log("20200304 获取聊天室地址", data);
         if (data.code === 1) {
           const address = data.data.addr;
           // setTimeout (()=>{
           //   this._login({ chatroomId, address });
           // },1000);
+            if(null != data.data.roomid) {
+                chatroomId = data.data.roomid;
+                Storage.set("roomId", chatroomId);
+            }
           return this._login({ chatroomId, address });
         } else {
           return Promise.reject(data.errmsg);

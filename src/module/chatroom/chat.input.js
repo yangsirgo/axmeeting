@@ -76,14 +76,37 @@ export default class extends Component {
       });
   };
 
+  //enter + ctrl 提交评论
+  handleEnterKey = e => {
+    let keyCode = (e.nativeEvent.keyCode ? e.nativeEvent.keyCode : e.nativeEvent.which);
+    if (e.nativeEvent.ctrlKey && (keyCode == 13 || keyCode == 10)) {
+      this.insertNewlineToChat(e.nativeEvent.target);
+    }
+    else if (!e.nativeEvent.ctrlKey && (keyCode == 13 || keyCode == 10)) {
+      this.sendMsg();
+      return false;
+    }
+  };
+
+  insertNewlineToChat (element) {
+    let myValue = "\r\n";
+    let $t = element;
+    $t.value += myValue;
+    $t.focus();
+  }
+
   sendCqMsg = e => {
     console.log("发送猜拳消息");
     EXT_CHAT.sendCqMsg()
       .then(() => {
         console.log("猜拳发送成功...");
+        //聚焦到textarea
+        document.querySelector('.msg-input').focus();
       })
       .catch(error => {
         console.error("猜拳发送失败...", error);
+        //聚焦到textarea
+        document.querySelector('.msg-input').focus();
       });
   };
 
@@ -99,6 +122,10 @@ export default class extends Component {
       msg: prevState.msg + " " + emoji,
       canSendMsg: true
     }));
+
+
+    //聚焦到textarea
+    document.querySelector('.msg-input').focus();
   };
 
   render() {
@@ -107,18 +134,19 @@ export default class extends Component {
         <TextArea
           className="msg-input"
           onChange={this.changeMsg}
+          onKeyDown={this.handleEnterKey}
           placeholder="和专家一起讨论"
           value={this.state.msg}
         />
         <div className="input-toolbar">
           <div className="part part-1">
             <Button
-              className="u-btn u-btn-smaller"
+              className="u-btn u-btn-smaller btn-width"
               onClick={this.sendMsg}
               disabled={!this.state.canSendMsg}
               loading={this.state.sendLoading}
             >
-              发送
+              发送(enter)
             </Button>
           </div>
           <div className="part part-2">
@@ -129,6 +157,7 @@ export default class extends Component {
           </div>
         </div>
         {ChatroomState.showEmojiPanel && <EmojiPanel fn={this.doAppendEmoji} />}
+        <div className="m-chatroom-input-tip">提示：enter+ctrl键文本换行 </div>
       </div>
     );
   }

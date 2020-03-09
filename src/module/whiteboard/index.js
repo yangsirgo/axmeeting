@@ -39,6 +39,8 @@ export default class extends Component {
     if (!(NetcallState.webrtc && NetcallState.webrtc.startDevice)) {
       return
     }
+
+    // this.switchMaskShare();
     const isTeacher = Storage.get('isTeacher')
     if (isTeacher == 1) {
       NetcallAction.settabindex(0)
@@ -55,6 +57,10 @@ export default class extends Component {
         EXT_NIM.updateChatroom(custom)
       }
     }
+      setTimeout(() => {
+          StoreWhiteBoard.setStatus({maskShareState: false});
+          console.log("20200306 StoreWhiteBoard.state.maskShareState", StoreWhiteBoard.state.maskShareState);
+      }, 1000)
   }
 
   showScreenSharePanel = e => {
@@ -122,7 +128,7 @@ export default class extends Component {
       }, 100);
 
     }
-  }
+  };
   /**
    *屏幕共享
    */
@@ -147,7 +153,8 @@ export default class extends Component {
       NetcallAction.setChromeDown(false)
       EXT_NETCALL.startChromeShareScreen()
         .then(() => {
-          console.log('===屏幕共享启动成功')
+          console.log('===屏幕共享启动成功');
+          this.switchMaskShare(true);
           NetcallAction.setHasShareScreen(false);
           if (ChatroomState.custom) {
             ChatroomAction.mergeCustom({
@@ -200,7 +207,38 @@ export default class extends Component {
         })
       EXT_NETCALL.changeRoleToPlayer()
     }
-  }
+  };
+
+    stopStudentScreenSharing = () => {
+        const findIdx = ChatroomState.members.findIndex((item, index) => {
+            return item.type == "owner";
+        });
+        if (findIdx == -1) {
+            console.error("未找到老师端，老师不在线所致");
+            return;
+        }
+        const account = ChatroomState.members[findIdx].account;
+        console.log("当前聊天室主持人：", account);
+        EXT_NIM.sendCustomSysMsg(account, {
+            room_id: ChatroomState.currChatroomId,
+            command: 15
+        });
+        let selfIndex = NetcallState.members.findIndex(item => {
+            return item.account == NimState.account;
+        });
+        NetcallAction.settabindex(0);
+        NetcallAction.setShareStarted(false);
+        EXT_NETCALL.startCamera().then(() => {
+            EXT_NETCALL.setVideoViewSize(0);
+            EXT_NETCALL.startLocalStream(NetcallState.doms[selfIndex] );
+        });
+        this.switchMaskShare(false);
+    };
+    switchMaskShare(flag){
+        // this.setState({maskShareState: StoreWhiteBoard.state.maskShareState});
+        StoreWhiteBoard.setStatus({maskShareState: flag})
+        console.log("20200306 StoreWhiteBoard.state.maskShareState", StoreWhiteBoard.state.maskShareState);
+    }
   render() {
     let isTeacher = Storage.get('isTeacher')
     isTeacher = isTeacher == 1;
@@ -223,6 +261,9 @@ export default class extends Component {
 
     let activeWhiteBoard = NetcallState.tabIndex == 0 && custom.showType == 1;
 
+    const maskShareStyle={
+        display: StoreWhiteBoard.state.maskShareState ? 'block' : 'none'
+    };
     return (
       <div className="m-whiteboard">
         <div className="u-tab">
@@ -253,6 +294,13 @@ export default class extends Component {
             )}
           </div>
           <div className="u-tab-body">
+                <div className="mask-share" style={maskShareStyle}>
+                共享中
+                {
+                    isTeacher ? (<a onClick = {this.showWhiteboardPanel}> 关闭共享 < /a>) :
+                (<a onClick = {this.stopStudentScreenSharing}> 学生关闭共享 < /a>)
+                }
+                </div>
             <WB visible={NetcallState.tabIndex == 0 && !someOneIsSharing} />
             {isTeacher ? (
               <ScreenShare4Teacher

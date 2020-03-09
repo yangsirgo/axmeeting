@@ -13,7 +13,7 @@ import { Header } from "layout";
 import { Row, Col, Button } from "component";
 import { Chatroom, Netcall, Whiteboard } from "module";
 
-import { StoreNim, StoreChatroom, StoreNetcall } from "store";
+import { StoreNim, StoreChatroom, StoreNetcall, StoreWhiteBoard } from "store";
 
 import { Page, Storage, Alert, CheckBroswer } from "util";
 import Video from "../../module/netcall/video";
@@ -98,8 +98,10 @@ class Main extends Component {
         //   dom1.srcObject = dom.childNodes[0].childNodes[0].srcObject
         //   dom1.play()
         // }
+          this.switchMaskShare(true);
       }, 1000)
     }).catch(e => {
+        this.switchMaskShare(false);
       this.stopScreenSharing()
       NetcallAction.setShareStarted(false)
     })
@@ -201,6 +203,7 @@ class Main extends Component {
           requesting: false
         });
       });
+      this.switchMaskShare(false);
   };
 
   doStopInteraction = () => {
@@ -276,6 +279,7 @@ class Main extends Component {
           requesting: false
         });
       });
+      this.switchMaskShare(false);
   };
   doCancle = () => {
     console.log("【停止互动确认弹窗】--> 取消...");
@@ -339,6 +343,12 @@ class Main extends Component {
     })
   }
 
+    switchMaskShare(flag){
+        // this.setState({maskShareState: StoreWhiteBoard.state.maskShareState});
+        StoreWhiteBoard.setStatus({maskShareState: flag})
+        console.log("20200306 StoreWhiteBoard.state.maskShareState", StoreWhiteBoard.state.maskShareState);
+    }
+
   render() {
     const state = this.state;
 
@@ -347,14 +357,25 @@ class Main extends Component {
     const studentHasPermission = ChatroomState.type != "owner" && NetcallState.hasPermission;
     const noBodySharing = ChatroomState.custom.shareID === '';
     const isStuSelfScreenSharing = ChatroomState.custom.shareID === Storage.get('account');
-    // let shareScreenText = ChatroomState.custom.showType == 0 && ChatroomState.custom.shareID;
-    //更改为 用户昵称 nickName
-    let shareScreenText = ChatroomState.custom.showType == 0 && Storage.get('nickName');
-    if (shareScreenText) {
-      shareScreenText = '(' + shareScreenText + '正在屏幕共享中)'
-    } else {
-      shareScreenText = ''
+    let shareID = ChatroomState.custom.showType == 0 && ChatroomState.custom.shareID;
+    let shareScreenText = "";
+
+    if (shareID) {
+      let shareObj = ChatroomState.members.find((item)=>{
+        return item.account === shareID;
+      });
+
+      if (shareObj) {
+        shareScreenText = '(' + shareObj.nick + '正在屏幕共享中)'
+      } else {
+        shareScreenText = ''
+      }
     }
+
+
+    //更改为 用户昵称 nickName
+    // let shareScreenText = ChatroomState.custom.showType == 0 && Storage.get('nickName');
+
 
     // item status === 1 是正在视频的状态
     let onLineTotal = NetcallState.members.filter((item) => {
